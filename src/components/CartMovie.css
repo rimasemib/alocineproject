@@ -1,0 +1,21 @@
+.cartMovieContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cartMovieTitle {
+  font-weight: 900;
+}
+
+.cartMovieImg {
+  height: 200px;
+  width: 100px;
+}
+
+.cartMovieImg img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
