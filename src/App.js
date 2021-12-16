@@ -11,40 +11,64 @@ const App = () => {
   const url3 = "https://api-allocine.herokuapp.com/api/movies/top_rated";
   // piste : l'URL doit etre dans un state
   const [url, setUrl] = useState(url1);
+  const [page, setPage] = useState(1);
 
-  const fetchData = async () => {
-    const response = await axios.get(url);
-    setData(response.data.results);
-  };
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get(url + "?p=" + page);
+      setData(response.data.results);
+    };
     fetchData();
-  }, [url]);
+  }, [url, page]);
 
   const urlImgPrefix = "https://image.tmdb.org/t/p/w370_and_h556_bestv2";
 
   return (
     <div style={{ fontSize: "30px" }}>
       HEADER ALLOCINE
+      <div className="buttonsLine">
+        BOUTONS URL
+        <button
+          onClick={() => {
+            setUrl(url1);
+            setPage(1);
+          }}
+        >
+          URL1 (POPULAR)
+        </button>
+        <button
+          onClick={() => {
+            setUrl(url2);
+            setPage(1);
+          }}
+        >
+          URL2 (upcoming)
+        </button>
+        <button
+          onClick={() => {
+            setUrl(url3);
+            setPage(1);
+          }}
+        >
+          URL3 (top rated)
+        </button>
+      </div>
+      <div className="buttonsLine">PAGE</div>
       <button
         onClick={() => {
-          setUrl(url1);
+          setPage(page + 1);
         }}
       >
-        URL1 (POPULAR)
+        page +
       </button>
       <button
         onClick={() => {
-          setUrl(url2);
+          if (page > 1) {
+            setPage(page - 1);
+          }
         }}
       >
-        URL2 (upcoming)
-      </button>
-      <button
-        onClick={() => {
-          setUrl(url3);
-        }}
-      >
-        URL3 (top rated)
+        page -
       </button>
       {data
         ? data.map((film, i) => {
