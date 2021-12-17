@@ -12,6 +12,7 @@ const App = () => {
   // piste : l'URL doit etre dans un state
   const [url, setUrl] = useState(url1);
   const [page, setPage] = useState(1);
+  const [selMovie, setSelMovie] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +21,8 @@ const App = () => {
     };
     fetchData();
   }, [url, page]);
+
+  console.log("data", data);
 
   const urlImgPrefix = "https://image.tmdb.org/t/p/w370_and_h556_bestv2";
 
@@ -76,10 +79,29 @@ const App = () => {
               <CartMovie
                 title={film.original_title}
                 url={urlImgPrefix + film.poster_path}
+                actionOnclick={() => {
+                  setSelMovie(i);
+                }}
               />
             );
           })
         : "EN ATTENTE"}
+      {selMovie !== null ? (
+        <div className="modalOneMovie">
+          <button
+            onClick={() => {
+              setSelMovie(null);
+            }}
+            className="deleteModale"
+          >
+            X
+          </button>
+          <h1>{data[selMovie].title}</h1>
+          <div>
+            <img src={urlImgPrefix + data[selMovie].backdrop_path} />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

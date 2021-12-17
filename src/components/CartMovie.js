@@ -2,7 +2,12 @@ import "./CartMovie.css";
 
 const CartMovie = (props) => {
   return (
-    <div className="cartMovieContainer">
+    <div
+      className="cartMovieContainer"
+      onClick={() => {
+        props.actionOnclick();
+      }}
+    >
       <div className="cartMovieTitle">{props.title}</div>
       <div className="cartMovieImg">
         <img src={props.url} />
